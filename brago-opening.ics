@@ -1,0 +1,25 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Brago//Invitation//RU
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:brago-opening-20261212@brago
+DTSTAMP:20261112T120000Z
+DTSTART:20261212T150000Z
+DTEND:20261212T230000Z
+SUMMARY:Открытие клуба Браго
+LOCATION:Барановичи\, ул. Комсомольская\, 61
+DESCRIPTION:Торжественное открытие клуба Браго. Начало в 18:00. Дресс-код: Black & Gold. Приглашение персональное.
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Завтра открытие клуба Браго
+TRIGGER:-P1D
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Через 2 часа открытие клуба Браго
+TRIGGER:-PT2H
+END:VALARM
+END:VEVENT
+END:VCALENDAR

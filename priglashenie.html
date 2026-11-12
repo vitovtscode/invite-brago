@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html lang="ru" class="locked">
+<head>
+<meta charset="utf-8">
+<title>Открытие Браго</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate, max-age=0">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#121110">
+<meta name="format-detection" content="telephone=no">
+<meta property="og:title" content="Приглашение на открытие клуба Браго">
+<meta property="og:description" content="12 декабря 2026 · 18:00 · Барановичи">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600&family=Onest:wght@400;500;600;700&display=swap">
+<link rel="preload" as="image" href="assets/plaster.jpg?v=1">
+<style>
+/* Layout: full-bleed cinematic screens (intro → video hero → 7 blocks) over dark concrete,
+   one centred reading column; gold for headings, lava-marble for actions, red neon only at the start. */
+:root{
+  --concrete:#262523;
+  --concrete-deep:#121110;
+  --text:#efebe4;
+  --text-dim:rgba(239,235,228,.64);
+  --text-faint:rgba(239,235,228,.38);
+  --line:rgba(239,235,228,.12);
+  --gold-dark:#6e4c1c;
+  --gold:#c99a45;
+  --gold-light:#f3d898;
+  --gold-hi:#fff5d6;
+  --neon:#ff2b2b;
+  --lava:#ff7a1a;
+  --iron:#2f2e2b;
+  --f-head:"Onest", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --f-text:"Nunito", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --ease-out:cubic-bezier(.16,.84,.3,1);
+  color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{margin:0;background:var(--concrete-deep);color:var(--text)}
+html{-webkit-text-size-adjust:100%;scroll-behavior:auto;scrollbar-gutter:stable}
+body{font:400 17px/1.62 var(--f-text);min-height:100%;overflow-x:hidden;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
+html.locked,html.locked body{overflow:hidden;overscroll-behavior:none}
+img{max-width:100%;display:block}
+main{position:relative;z-index:1}
+button{font:inherit;color:inherit}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--gold-light);outline-offset:4px}
+
+/* ---------- concrete backdrop: the exact wall from the video, fixed in place ---------- */
+.backdrop{position:fixed;inset:0;z-index:0;background:var(--concrete) url("assets/bg-plate.jpg?v=1") center/cover no-repeat}
+.backdrop::after{content:"";position:absolute;inset:0;opacity:0;transition:opacity 2.6s ease-in-out;
+  background:
+    radial-gradient(120% 85% at 50% 45%, rgba(14,13,12,.38) 0%, rgba(14,13,12,.72) 100%),
+    linear-gradient(rgba(14,13,12,.18), rgba(14,13,12,.3))}
+html.dim .backdrop::after{opacity:1}
+
+/* The neon sign, separate from the wall; scrolls away with the first screen.
+   Box is twice the first screen, centred on it; image sized exactly like the video's "cover".
+   .sign-layer = sign + its light on the wall (matches the last video frame, used for the swap)
+   .sign-core  = tubes + tight glow only (what stays once the wall has dimmed) */
+.sign-layer,.sign-core{position:absolute;left:0;width:100%;top:-50vh;top:-50svh;height:200vh;height:200svh;z-index:2;pointer-events:none;
+  background:url("assets/neon-sign.webp?v=1") center/max(100%, 56.25vh) auto no-repeat;
+  background-size:max(100%, 56.25svh) auto;opacity:0;visibility:hidden;will-change:opacity}
+.sign-core{background-image:url("assets/neon-core.webp?v=1")}
+.sign-layer.on{opacity:1;visibility:visible;transition:opacity .5s linear}
+html.dim .sign-layer.on{opacity:0;visibility:hidden;transition:opacity 2.6s ease-in-out, visibility 0s 2.6s}
+html.dim .sign-core{opacity:1;visibility:visible;transition:opacity 2.6s ease-in-out;animation:signhum 7s steps(1) 4s infinite}
+@keyframes signhum{0%,90%{opacity:1}91%{opacity:.78}92%{opacity:1}93.5%{opacity:.86}94%{opacity:1}}
+
+/* ---------- intro (neon logo) ---------- */
+.intro{position:fixed;inset:0;z-index:50;display:grid;place-items:center;
+  background:#0d0c0b url("assets/plaster.jpg?v=1") center/cover no-repeat;overflow:hidden}
+.intro__vignette{position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(75% 60% at 50% 50%, rgba(0,0,0,0) 30%, rgba(0,0,0,.62) 100%)}
+.intro__cast{position:absolute;left:50%;top:50%;width:150vmin;height:150vmin;transform:translate(-50%,-50%);pointer-events:none;
+  background:radial-gradient(closest-side, rgba(255,40,30,.22), rgba(255,30,20,.08) 45%, rgba(255,30,20,0) 72%);
+  transition:opacity .08s linear}
+.intro canvas{position:absolute;inset:0;width:100%;height:100%;display:none}
+.neon-btn{position:relative;z-index:2;background:none;border:0;padding:0;cursor:pointer;
+  width:min(58vw,300px);aspect-ratio:621.78/561.33;touch-action:manipulation}
+.neon{width:100%;height:100%;overflow:visible;display:block}
+.neon .lit{transition:opacity .05s linear}
+.neon.off .lit{opacity:.1}
+.neon .hum{animation:hum 3.2s steps(1) infinite}
+@keyframes hum{0%,100%{opacity:1}31%{opacity:.93}32%{opacity:1}67%{opacity:.96}68%{opacity:1}}
+.intro.off .intro__cast{opacity:.15}
+.tap-ring{position:absolute;inset:-14%;border-radius:50%;pointer-events:none;
+  border:1px solid rgba(255,90,80,.5);box-shadow:0 0 18px rgba(255,40,30,.35), inset 0 0 18px rgba(255,40,30,.25);
+  opacity:0;animation:ring 2.6s var(--ease-out) 1.8s infinite}
+.tap-ring:nth-of-type(2){animation-delay:2.6s}
+@keyframes ring{0%{transform:scale(.72);opacity:0}25%{opacity:.75}100%{transform:scale(1.32);opacity:0}}
+.intro.gone{display:none}
+.intro.igniting .tap-ring{display:none}
+.intro.igniting .intro__cast{opacity:0;transition:opacity .25s}
+.intro.igniting .neon-btn{opacity:0;transition:opacity .12s}
+
+/* ---------- fx overlay ---------- */
+#fx{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:60}
+
+/* ---------- hero video ---------- */
+.hero{position:relative;height:100vh;height:100svh;overflow:hidden;background:#0d0c0b;transition:background-color .5s linear}
+.hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;transition:opacity .5s linear}
+.hero::after{content:"";position:absolute;inset:auto 0 0;height:22%;pointer-events:none;transition:opacity 1.2s ease-in-out;
+  background:linear-gradient(rgba(18,17,16,0), rgba(18,17,16,.9))}
+/* after the video: wall + separate sign take its place */
+.hero.swapped{background-color:transparent}
+.hero.swapped video,.hero.swapped::after{opacity:0}
+
+.scroll-hint{position:fixed;left:50%;bottom:calc(22px + env(safe-area-inset-bottom,0px));z-index:40;
+  transform:translateX(-50%);width:34px;height:44px;pointer-events:none;opacity:0;transition:opacity .8s}
+.scroll-hint.show{opacity:1}
+.scroll-hint svg{position:absolute;left:0;width:34px;height:18px;overflow:visible}
+.scroll-hint svg:nth-child(1){top:0;animation:chev 1.8s ease-in-out infinite}
+.scroll-hint svg:nth-child(2){top:14px;animation:chev 1.8s ease-in-out .3s infinite}
+.scroll-hint path{fill:none;stroke:var(--gold-light);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;
+  filter:drop-shadow(0 0 6px rgba(243,216,152,.55))}
+@keyframes chev{0%{opacity:0;transform:translateY(-6px)}45%{opacity:1}100%{opacity:0;transform:translateY(8px)}}
+
+/* ---------- blocks ---------- */
+.block{position:relative;min-height:92vh;min-height:92svh;display:flex;align-items:center;padding-block:12vh}
+.block--auto{min-height:auto}
+.wrap{width:100%;max-width:600px;margin-inline:auto;
+  padding-left:max(24px, env(safe-area-inset-left,0px));padding-right:max(24px, env(safe-area-inset-right,0px));
+  display:flex;flex-direction:column;align-items:center;text-align:center;gap:22px}
+.block + .block::before{content:"";position:absolute;top:-3.5vh;left:50%;width:1px;height:9vh;transform:translateX(-50%);
+  background:linear-gradient(rgba(201,154,69,0), rgba(201,154,69,.55))}
+
+.eyebrow{font:500 12px/1.2 var(--f-head);letter-spacing:.34em;text-transform:uppercase;color:var(--text-dim);margin:0;padding-left:.34em}
+.h1,.h2{font-family:var(--f-head);margin:0;text-wrap:balance;letter-spacing:-.01em}
+.h1{font-weight:600;font-size:clamp(44px,14vw,84px);line-height:1}
+.h2{font-weight:600;font-size:clamp(30px,8.6vw,50px);line-height:1.08}
+.lead{margin:0;max-width:30em;color:var(--text);font-weight:300;font-size:18px;text-wrap:pretty}
+.muted{color:var(--text-dim)}
+.small{font-size:14px;line-height:1.5}
+.rule{width:56px;height:1px;border:0;margin:4px 0;background:linear-gradient(90deg, rgba(201,154,69,0), var(--gold-light), rgba(201,154,69,0))}
+
+/* real-gold text with a slow flowing highlight */
+.gold{
+  background:linear-gradient(100deg,
+    #6e4c1c 0%, #b7883a 12%, #f3d898 24%, #fff7dc 29%, #d8aa55 38%, #8a6326 50%,
+    #c99a45 62%, #f6dfa4 72%, #fff5d6 76%, #b98a3b 86%, #6e4c1c 100%);
+  background-size:260% 100%;background-position:0% 50%;
+  -webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;
+  animation:goldflow 7s linear infinite}
+@keyframes goldflow{to{background-position:-260% 50%}}
+
+/* block 1: gold wordmark via alpha mask */
+.wordmark{width:min(78vw,360px);aspect-ratio:1200/380;
+  -webkit-mask:url("assets/brago-word.png?v=1") center/contain no-repeat;mask:url("assets/brago-word.png?v=1") center/contain no-repeat;
+  background:linear-gradient(100deg,#6e4c1c 0%,#c99a45 18%,#f3d898 30%,#fff7dc 35%,#c99a45 48%,#7d5822 60%,#e8c578 74%,#fff5d6 79%,#b98a3b 90%,#6e4c1c 100%);
+  background-size:260% 100%;animation:goldflow 6s linear infinite;
+  filter:drop-shadow(0 0 22px rgba(201,154,69,.28))}
+
+/* block 2 facts */
+.facts{display:grid;grid-template-columns:1fr 1fr;gap:1px;width:100%;margin-top:10px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.facts div{background:rgba(18,17,16,.55);padding:16px 12px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.facts .wide{grid-column:1 / -1}
+.facts dt{font:500 11px/1.2 var(--f-head);letter-spacing:.22em;text-transform:uppercase;color:var(--text-faint)}
+.facts dd{margin:0;font:500 16px/1.3 var(--f-head);color:var(--text)}
+
+/* ---------- lava-marble buttons ---------- */
+.lava{position:relative;isolation:isolate;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  min-height:62px;width:min(320px,100%);padding:0 28px;border:0;border-radius:16px;cursor:pointer;text-decoration:none;
+  font:600 14px/1 var(--f-head);letter-spacing:.18em;text-transform:uppercase;color:#fff8ee;
+  text-shadow:0 1px 2px rgba(40,10,0,.7), 0 0 14px rgba(255,140,40,.45);
+  background:#7a2e08 url("assets/mramor.jpg?v=1") 0% 12%/340% auto no-repeat;
+  animation:lavaflow 16s ease-in-out infinite alternate, lavaglow 3.4s ease-in-out infinite;
+  touch-action:manipulation;transition:transform .15s ease}
+.lava::before{content:"";position:absolute;inset:0;z-index:-1;border-radius:inherit;
+  background:
+    radial-gradient(60% 120% at var(--hx,30%) 50%, rgba(255,200,90,.38), rgba(255,120,20,0) 70%),
+    linear-gradient(180deg, rgba(60,18,0,.18), rgba(30,8,0,.5));
+  box-shadow:inset 0 0 0 1px rgba(255,200,130,.4), inset 0 -10px 22px rgba(255,90,10,.35), inset 0 8px 16px rgba(255,230,170,.18);
+  animation:hotspot 5s ease-in-out infinite alternate}
+.lava::after{content:"";position:absolute;top:-20%;bottom:-20%;left:0;width:45%;z-index:0;pointer-events:none;
+  background:linear-gradient(100deg, rgba(255,255,255,0) 0%, rgba(255,250,235,.0) 20%, rgba(255,250,235,.75) 50%, rgba(255,250,235,0) 80%);
+  transform:translateX(-140%) skewX(-18deg);animation:shine 3.8s ease-in-out 1s infinite}
+.lava > span{position:relative;z-index:1}
+.lava:active{transform:scale(.97)}
+@keyframes lavaflow{0%{background-position:0% 8%}35%{background-position:45% 18%}70%{background-position:100% 6%}100%{background-position:70% 92%}}
+@keyframes lavaglow{0%,100%{box-shadow:0 10px 28px -10px rgba(255,90,10,.6), 0 0 26px -8px rgba(255,120,30,.45)}
+  50%{box-shadow:0 12px 36px -8px rgba(255,110,20,.85), 0 0 46px -4px rgba(255,140,40,.6)}}
+@keyframes hotspot{0%{--hx:20%}100%{--hx:80%}}
+@property --hx{syntax:"<percentage>";inherits:false;initial-value:30%}
+@keyframes shine{0%{transform:translateX(-140%) skewX(-18deg)}55%,100%{transform:translateX(330%) skewX(-18deg)}}
+
+.iron{display:inline-flex;align-items:center;justify-content:center;min-height:52px;width:min(320px,100%);padding:0 24px;cursor:pointer;
+  border-radius:14px;border:1px solid rgba(239,235,228,.16);color:var(--text-dim);
+  background:linear-gradient(160deg,#3a3936 0%,#24231f 55%,#2e2a25 100%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.06), 0 8px 20px -12px rgba(0,0,0,.8);
+  font:500 13px/1 var(--f-head);letter-spacing:.16em;text-transform:uppercase;touch-action:manipulation;transition:transform .15s, color .2s}
+.iron:active{transform:scale(.97)}
+
+/* ---------- block 3: scratch + countdown ---------- */
+.scratch{position:relative;width:100%;display:grid;place-items:center;min-height:132px}
+.timer{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;width:100%;max-width:420px;
+  opacity:0;filter:blur(14px);transform:scale(.94);transition:opacity 1.2s var(--ease-out), filter 1.2s var(--ease-out), transform 1.2s var(--ease-out)}
+.timer.on{opacity:1;filter:none;transform:none}
+.timer .cell{display:flex;flex-direction:column;align-items:center;gap:8px;padding:16px 4px 12px;border-radius:14px;
+  background:linear-gradient(180deg, rgba(18,17,16,.62), rgba(18,17,16,.38));border:1px solid var(--line)}
+.timer .num{font:600 clamp(30px,9vw,46px)/1 var(--f-head);font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.timer .lbl{font:500 10px/1 var(--f-head);letter-spacing:.2em;text-transform:uppercase;color:var(--text-faint)}
+.timer-open{display:none;font:600 clamp(30px,9vw,46px)/1.1 var(--f-head)}
+.timer.done .cell{display:none}
+.timer.done{grid-template-columns:1fr}
+.timer.done .timer-open{display:block}
+.scratch canvas{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(320px,100%);height:64px;
+  border-radius:16px;touch-action:pan-y;cursor:grab;animation:lavaglow 3.4s ease-in-out infinite}
+.swipe-hint{position:absolute;left:50%;top:calc(50% + 48px);width:120px;height:2px;transform:translateX(-50%);
+  background:linear-gradient(90deg, rgba(243,216,152,0), rgba(243,216,152,.35), rgba(243,216,152,0));border-radius:2px;transition:opacity .4s}
+.swipe-hint::after{content:"";position:absolute;top:50%;left:0;width:8px;height:8px;margin-top:-4px;border-radius:50%;
+  background:var(--gold-hi);box-shadow:0 0 10px 2px rgba(255,170,60,.8);animation:swipe 2.2s var(--ease-out) infinite}
+@keyframes swipe{0%{transform:translateX(0);opacity:0}15%{opacity:1}80%{opacity:1}100%{transform:translateX(112px);opacity:0}}
+.scratch.cleared .swipe-hint,.scratch.touched .swipe-hint{opacity:0}
+
+/* ---------- block 4: programme ---------- */
+.plan{list-style:none;margin:8px 0 0;padding:0;width:100%;text-align:left;position:relative;display:flex;flex-direction:column;gap:26px}
+.plan::before{content:"";position:absolute;left:78px;top:8px;bottom:8px;width:1px;
+  background:linear-gradient(rgba(201,154,69,0), rgba(201,154,69,.6) 10%, rgba(201,154,69,.6) 90%, rgba(201,154,69,0))}
+.plan li{display:grid;grid-template-columns:62px 1fr;column-gap:33px;align-items:start;position:relative}
+.plan li::before{content:"";position:absolute;left:74px;top:9px;width:9px;height:9px;border-radius:50%;
+  background:var(--gold-light);box-shadow:0 0 0 3px rgba(18,17,16,.9), 0 0 12px 2px rgba(243,216,152,.45)}
+.plan time{font:600 18px/1.35 var(--f-head);font-variant-numeric:tabular-nums;text-align:right}
+.plan h3{margin:0 0 4px;font:500 18px/1.35 var(--f-head);color:var(--text)}
+.plan p{margin:0;font-size:15px;line-height:1.55;color:var(--text-dim)}
+.plan div{min-width:0}
+
+/* ---------- block 5: RSVP ---------- */
+.rsvp{display:flex;flex-direction:column;align-items:center;gap:14px;width:100%}
+.rsvp .lava.done{pointer-events:none;animation:lavaflow 16s ease-in-out infinite alternate;filter:saturate(.75) brightness(.9)}
+.rsvp .decline-slot{display:grid;grid-template-rows:1fr;width:100%;justify-items:center;transition:grid-template-rows .5s var(--ease-out), opacity .4s}
+.rsvp .decline-slot > div{overflow:hidden;display:flex;justify-content:center;width:100%;padding:4px}
+.rsvp .decline-slot.gone{grid-template-rows:0fr;opacity:0}
+.rsvp-note{min-height:1.5em;margin:0;color:var(--gold-light);font-size:15px;opacity:0;transition:opacity .6s}
+.rsvp-note.show{opacity:1}
+
+/* ---------- block 6: calendar ---------- */
+.date-big{font:600 clamp(40px,13vw,72px)/1 var(--f-head);font-variant-numeric:tabular-nums;letter-spacing:.02em;display:flex;gap:.28em;align-items:baseline}
+.date-big i{font-style:normal;opacity:.55}
+.text-link{font-size:14px;color:var(--text-dim);text-decoration:none;border-bottom:1px solid var(--line);padding-bottom:2px}
+
+/* ---------- block 7 ---------- */
+.mark{width:min(42vw,180px);height:auto;aspect-ratio:1;object-fit:contain;border-radius:50%;
+  box-shadow:0 0 0 1px rgba(243,216,152,.25), 0 0 60px -6px rgba(201,154,69,.55), 0 20px 50px -20px rgba(0,0,0,.9);animation:breathe 5s ease-in-out infinite}
+@keyframes breathe{50%{box-shadow:0 0 0 1px rgba(243,216,152,.35), 0 0 90px 0 rgba(201,154,69,.7), 0 20px 50px -20px rgba(0,0,0,.9)}}
+.sign{font:500 13px/1.4 var(--f-head);letter-spacing:.3em;text-transform:uppercase;color:var(--text-faint);padding-left:.3em}
+
+/* ---------- modal ---------- */
+.modal{position:fixed;inset:0;z-index:70;display:grid;place-items:center;padding:24px max(20px, env(safe-area-inset-right,0px)) 24px max(20px, env(safe-area-inset-left,0px));
+  background:rgba(8,7,6,.62);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);opacity:0;transition:opacity .35s}
+.modal.show{opacity:1}
+.modal__card{width:min(400px,100%);padding:34px 24px 26px;border-radius:20px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:16px;
+  background:linear-gradient(180deg, rgba(48,46,42,.96), rgba(26,25,23,.98)) ;border:1px solid rgba(243,216,152,.18);
+  box-shadow:0 30px 80px -20px rgba(0,0,0,.9), 0 0 50px -20px rgba(255,90,20,.35);transform:translateY(16px) scale(.97);transition:transform .45s var(--ease-out)}
+.modal.show .modal__card{transform:none}
+.modal__icon{width:54px;height:54px;border-radius:50%;display:grid;place-items:center;border:1.5px solid #ff4b3e;color:#ffd7d2;
+  font:700 26px/1 var(--f-head);box-shadow:0 0 14px rgba(255,43,43,.6), inset 0 0 12px rgba(255,43,43,.45);text-shadow:0 0 8px #ff2b2b}
+.modal__card p{margin:0}
+
+/* ---------- rotate overlay (phones in landscape) ---------- */
+.rotate{position:fixed;inset:0;z-index:100;display:none;place-items:center;text-align:center;background:var(--concrete-deep);
+  padding:24px max(24px, env(safe-area-inset-right,0px)) 24px max(24px, env(safe-area-inset-left,0px))}
+.rotate div{display:flex;flex-direction:column;align-items:center;gap:18px}
+.rotate .phone{width:34px;height:58px;border:2px solid var(--gold-light);border-radius:8px;animation:tilt 2.4s ease-in-out infinite;box-shadow:0 0 14px rgba(243,216,152,.35)}
+.rotate p{margin:0;font:500 15px/1.4 var(--f-head);letter-spacing:.06em;color:var(--text-dim)}
+@keyframes tilt{0%,30%{transform:rotate(-90deg)}60%,100%{transform:rotate(0)}}
+@media (orientation:landscape) and (max-height:560px) and (hover:none) and (pointer:coarse){
+  .rotate{display:grid}
+}
+
+/* ---------- scroll reveal: slide-up + fade-in ---------- */
+.rv{opacity:0;transform:translate3d(0,56px,0);
+  transition:opacity 1.1s var(--ease-out), transform 1.1s var(--ease-out);transition-delay:calc(var(--d,0) * 120ms)}
+.rv.in{opacity:1;transform:none}
+
+@media (prefers-reduced-motion:reduce){
+  .gold,.wordmark,.lava,.lava::before,.lava::after,.mark,.tap-ring,.neon .hum,.swipe-hint::after{animation:none!important}
+  .rv{transform:none;transition:opacity .6s}
+}
+</style>
+</head>
+<body>
+
+<div class="backdrop" aria-hidden="true"></div>
+
+<!-- ============ INTRO: neon sign on black plaster ============ -->
+<div class="intro" id="intro">
+  <div class="intro__cast" aria-hidden="true"></div>
+  <div class="intro__vignette" aria-hidden="true"></div>
+  <canvas id="introCanvas" aria-hidden="true"></canvas>
+  <button class="neon-btn" id="neonBtn" type="button" aria-label="Открыть приглашение">
+    <span class="tap-ring" aria-hidden="true"></span><span class="tap-ring" aria-hidden="true"></span>
+    <svg class="neon" id="neon" viewBox="-30 -30 621.78 561.33" aria-hidden="true">
+      <defs>
+        <path id="bpath" d="M362.08,176.61c-.08-.05-.15-.11-.23-.16l-.24-.15c-.18-.11-.35-.24-.54-.35-.18-.11-.37-.21-.55-.32l-167.41-103.61h18.26c1.76.05,3.52.09,5.29.1h176.87c8.15,0,15.13-5.82,15.13-14.55,0-8.15-6.98-14.55-15.13-14.55h-134.78c-15.98-.12-32.82-.13-48.38-.1h-65.8c-4.23-.88-8.68.46-12.14,3.95-2.68,2.4-4.46,5.72-4.76,9.49-.64,4.98,1.28,9.86,5.4,12.68l212.81,131.71c.25.16.48.33.72.5,59.18,37.25,78.53,113.29,42.57,171.38-36.13,58.38-113.09,74.38-172.95,37.33-60.36-37.36-79.87-113.07-43.74-171.45,13.26-21.42,32.01-37.19,53.39-46.79,0,0,0-.01,0-.02l5.64-2.58c6.74-3.08,9.74-10.55,6.28-18.12-3.23-7.07-11.06-10.2-17.8-7.12l-7.47,3.41s.01.05.02.07c-24.94,12.13-46.89,31.33-62.81,57.05-45.01,72.73-22.03,164.95,51.19,210.27,73.22,45.32,166.01,24.74,211.02-47.98,44.8-72.39,22.53-164.56-49.88-210.11Z"/>
+        <filter id="nGlowWide" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="16"/></filter>
+        <filter id="nGlowMid" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="5"/></filter>
+      </defs>
+      <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <!-- unlit glass tube, visible when the sign flickers off -->
+        <use href="#bpath" id="tubePath" stroke="#4a1d1a" stroke-width="10"/>
+        <use href="#bpath" stroke="#7a3a35" stroke-width="2.4" opacity=".55"/>
+        <g class="lit"><g class="hum">
+          <use href="#bpath" stroke="#ff1a12" stroke-width="30" filter="url(#nGlowWide)" opacity=".9"/>
+          <use href="#bpath" stroke="#ff2b2b" stroke-width="15" filter="url(#nGlowMid)"/>
+          <use href="#bpath" stroke="#ff4a40" stroke-width="9"/>
+          <use href="#bpath" stroke="#ffb3a8" stroke-width="4.5"/>
+          <use href="#bpath" stroke="#fff1ec" stroke-width="2"/>
+        </g></g>
+      </g>
+    </svg>
+  </button>
+</div>
+
+<canvas id="fx" aria-hidden="true"></canvas>
+
+<main>
+  <!-- ============ HERO VIDEO ============ -->
+  <section class="hero" id="hero" aria-label="Браго">
+    <video id="heroVideo" muted playsinline webkit-playsinline preload="auto" poster="assets/poster.jpg?v=1" disablepictureinpicture>
+      <source src="assets/brago_neon.mp4?v=1" type="video/mp4">
+    </video>
+  </section>
+
+  <!-- ============ 1. Coming soon ============ -->
+  <section class="block" aria-labelledby="b1">
+    <div class="wrap">
+      <p class="eyebrow rv" id="b1">Скоро открытие</p>
+      <div class="wordmark rv" style="--d:1" role="img" aria-label="браго"></div>
+      <hr class="rule rv" style="--d:2">
+      <p class="lead rv" style="--d:3">Старый бетон, состаренное железо, неон, мрамор и золото. Новый клуб в&nbsp;самом сердце Барановичей, где музыка звучит громче слов, а&nbsp;вечер не&nbsp;заканчивается в&nbsp;полночь.</p>
+    </div>
+  </section>
+
+  <!-- ============ 2. Invitation ============ -->
+  <section class="block" aria-labelledby="b2">
+    <div class="wrap">
+      <p class="eyebrow rv">Персональное приглашение</p>
+      <h1 class="h1 gold rv" style="--d:1" id="b2"><span data-guest>Елена</span>,</h1>
+      <p class="lead rv" style="--d:2">для нас большая честь пригласить Вас на&nbsp;это знаменательное событие&nbsp;— торжественное открытие клуба Браго. Мы&nbsp;готовили этот вечер два года и&nbsp;очень хотим разделить его&nbsp;с&nbsp;Вами.</p>
+      <dl class="facts rv" style="--d:3">
+        <div><dt>Дата</dt><dd>12.12.2026</dd></div>
+        <div><dt>Начало</dt><dd>18:00</dd></div>
+        <div class="wide"><dt>Место</dt><dd>Барановичи, ул.&nbsp;Комсомольская,&nbsp;61</dd></div>
+        <div class="wide"><dt>Дресс-код</dt><dd>Black &amp; Gold</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- ============ 3. Countdown ============ -->
+  <section class="block" aria-labelledby="b3">
+    <div class="wrap">
+      <p class="eyebrow rv">12.12 · 18:00 · Барановичи</p>
+      <h2 class="h2 gold rv" style="--d:1" id="b3">До открытия осталось</h2>
+      <div class="scratch rv" style="--d:2" id="scratch">
+        <div class="timer" id="timer" aria-live="off">
+          <div class="cell"><span class="num gold" id="tD">00</span><span class="lbl" id="lD">дней</span></div>
+          <div class="cell"><span class="num gold" id="tH">00</span><span class="lbl" id="lH">часов</span></div>
+          <div class="cell"><span class="num gold" id="tM">00</span><span class="lbl" id="lM">минут</span></div>
+          <div class="cell"><span class="num gold" id="tS">00</span><span class="lbl" id="lS">секунд</span></div>
+          <div class="timer-open gold">Мы открыты!</div>
+        </div>
+        <canvas id="scratchCanvas" role="button" tabindex="0" aria-label="Стереть: проведите пальцем по кнопке"></canvas>
+        <span class="swipe-hint" aria-hidden="true"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 4. Programme ============ -->
+  <section class="block" aria-labelledby="b4">
+    <div class="wrap">
+      <p class="eyebrow rv">Суббота, 12 декабря</p>
+      <h2 class="h2 gold rv" style="--d:1" id="b4">План вечера</h2>
+      <ol class="plan">
+        <li class="rv"><time class="gold">18:00</time><div><h3>Сбор гостей</h3><p>Welcome-коктейли от бар-команды Браго и живой саксофон в фойе.</p></div></li>
+        <li class="rv"><time class="gold">18:45</time><div><h3>Зажжение неона</h3><p>Церемония открытия: вместе включим главную вывеску клуба.</p></div></li>
+        <li class="rv"><time class="gold">19:30</time><div><h3>Ужин от шеф-повара</h3><p>Сет из пяти подач в мраморном зале.</p></div></li>
+        <li class="rv"><time class="gold">20:30</time><div><h3>Шоу-программа</h3><p>Световое шоу на бетонной стене и выступление приглашённых артистов.</p></div></li>
+        <li class="rv"><time class="gold">22:00</time><div><h3>DJ-сет</h3><p>Главный танцпол открывается. Звук, который чувствуешь кожей.</p></div></li>
+        <li class="rv"><time class="gold">00:00</time><div><h3>Afterparty</h3><p>Для тех, кто не хочет, чтобы этот вечер заканчивался.</p></div></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ============ 5. RSVP ============ -->
+  <section class="block" aria-labelledby="b5">
+    <div class="wrap">
+      <p class="eyebrow rv">Ваш ответ</p>
+      <h2 class="h2 gold rv" style="--d:1" id="b5">Вы с нами?</h2>
+      <p class="lead muted rv" style="--d:2">Подтвердите участие, чтобы мы подготовили для&nbsp;Вас место и&nbsp;именной браслет.</p>
+      <div class="rsvp rv" style="--d:3">
+        <button class="lava" id="confirmBtn" type="button"><span id="confirmLabel">Подтвердить участие</span></button>
+        <div class="decline-slot" id="declineSlot"><div>
+          <button class="iron" id="declineBtn" type="button">Не смогу прийти</button>
+        </div></div>
+        <p class="rsvp-note" id="rsvpNote" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 6. Calendar ============ -->
+  <section class="block" aria-labelledby="b6">
+    <div class="wrap">
+      <p class="eyebrow rv">Сохраните дату</p>
+      <h2 class="h2 rv" style="--d:1" id="b6"><span class="date-big gold">12<i>·</i>12<i>·</i>2026</span></h2>
+      <p class="lead muted rv" style="--d:2">Суббота, начало в&nbsp;18:00. Напомним за&nbsp;день и&nbsp;за&nbsp;два часа до&nbsp;начала.</p>
+      <a class="lava rv" style="--d:3" id="calBtn" href="brago-opening.ics?v=1" type="text/calendar"><span>Добавить в календарь</span></a>
+      <a class="text-link rv" style="--d:4" id="gcalLink" href="#" target="_blank" rel="noopener">Или в Google Календарь</a>
+    </div>
+  </section>
+
+  <!-- ============ 7. Thank you ============ -->
+  <section class="block" aria-labelledby="b7">
+    <div class="wrap">
+      <img class="mark rv" src="assets/brago-gold.png?v=1" alt="Знак клуба Браго" width="180" height="180">
+      <h2 class="h1 gold rv" style="--d:1" id="b7">Спасибо!</h2>
+      <p class="lead rv" style="--d:2">Ждём Вас, <span data-guest>Елена</span>. Это приглашение персональное, пожалуйста, покажите его на&nbsp;входе.</p>
+      <p class="sign rv" style="--d:3">Команда Браго</p>
+    </div>
+  </section>
+</main>
+
+<div class="sign-layer" id="signLayer" aria-hidden="true"></div>
+<div class="sign-core" aria-hidden="true"></div>
+
+<div class="scroll-hint" id="scrollHint" aria-hidden="true">
+  <svg viewBox="0 0 34 18"><path d="M3 3 L17 15 L31 3"/></svg>
+  <svg viewBox="0 0 34 18"><path d="M3 3 L17 15 L31 3"/></svg>
+</div>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" hidden>
+  <div class="modal__card">
+    <div class="modal__icon" aria-hidden="true">!</div>
+    <h3 class="h2 gold" id="modalTitle" style="font-size:28px">Ой!</h3>
+    <p>Сообщение не удалось отправить.</p>
+    <p class="muted">Поэтому Вам придётся прийти на&nbsp;наше открытие&nbsp;:)</p>
+    <button class="lava" id="modalOk" type="button"><span>Хорошо, я приду</span></button>
+  </div>
+</div>
+
+<div class="rotate" aria-hidden="true">
+  <div><span class="phone"></span><p>Поверните телефон вертикально</p></div>
+</div>
+
+<script>
+(() => {
+  "use strict";
+
+  /* ---------- fresh start every time: no stored state, no restored scroll ---------- */
+  document.documentElement.classList.add("locked");
+  try { if ("scrollRestoration" in history) history.scrollRestoration = "manual"; } catch (e) {}
+  window.scrollTo(0, 0);
+  window.addEventListener("pageshow", (e) => { if (e.persisted) location.reload(); });
+
+  const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const $ = (id) => document.getElementById(id);
+  const rand = (a, b) => a + Math.random() * (b - a);
+  const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+
+  /* ---------- guest name from link: ?guest=Елена ---------- */
+  let guest = "Елена";
+  try {
+    const g = new URLSearchParams(location.search).get("guest");
+    if (g && g.trim()) guest = g.trim().slice(0, 40);
+  } catch (e) {}
+  document.querySelectorAll("[data-guest]").forEach((el) => (el.textContent = guest));
+
+  /* ---------- images we need as pixels ---------- */
+  const loadImg = (src) => { const i = new Image(); i.decoding = "async"; i.src = src; return i; };
+  const plasterImg = loadImg("assets/plaster.jpg?v=1");
+  const marbleImg = loadImg("assets/mramor.jpg?v=1");
+
+  /* =====================================================================
+     FX: one full-screen canvas of fire sparks
+     ===================================================================== */
+  const fx = $("fx"), fctx = fx.getContext("2d");
+  let W = 0, H = 0, DPR = 1;
+  const parts = [];
+  const tasks = new Set(); // per-frame callbacks (burn front etc.)
+  let running = false, lastT = 0;
+
+  function resizeFx() {
+    DPR = Math.min(window.devicePixelRatio || 1, 1.5);
+    W = window.innerWidth; H = window.innerHeight;
+    fx.width = Math.round(W * DPR); fx.height = Math.round(H * DPR);
+    fctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+  }
+  resizeFx();
+  window.addEventListener("resize", resizeFx);
+
+  /* Colour tables: sparks are drawn in batches (one stroke per colour/alpha/width bucket),
+     which keeps thousands of sparks smooth on phones. */
+  const TS = 14, AS = 6, MAXP = 16000;
+  function emberColor(t) { // 1 white-hot → 0 dark red
+    if (t > .66) { const k = (t - .66) / .34; return [255, 190 + 60 * k, 110 + 120 * k]; }
+    if (t > .33) { const k = (t - .33) / .33; return [255, 110 + 80 * k, 30 + 80 * k]; }
+    const k = t / .33; return [140 + 115 * k, 25 + 85 * k, 10 + 20 * k];
+  }
+  function neonColor(t) { // 1 pink-white core → red tube → dark red
+    if (t > .6) { const k = (t - .6) / .4; return [255, 70 + 170 * k, 60 + 160 * k]; }
+    const k = t / .6; return [130 + 125 * k, 10 + 60 * k, 8 + 52 * k];
+  }
+  function goldColor(t) { // 1 pale gold → deep gold
+    return [170 + 85 * t, 110 + 120 * t, 40 + 130 * t * t];
+  }
+  const PALS = [emberColor, neonColor, goldColor];
+  const STYLES = [];
+  PALS.forEach((fn) => { for (let ti = 0; ti < TS; ti++) { const c = fn(ti / (TS - 1)); for (let ai = 0; ai < AS; ai++) STYLES.push(`rgba(${c[0] | 0},${c[1] | 0},${c[2] | 0},${((ai + 1) / AS).toFixed(3)})`); } });
+  const NB = STYLES.length * 2;
+  const buckets = Array.from({ length: NB }, () => []);
+  const bucketLen = new Int32Array(NB);
+
+  function spark(o) {
+    if (parts.length >= MAXP) return;
+    parts.push(Object.assign({
+      x: 0, y: 0, vx: 0, vy: 0, age: 0, delay: 0, life: 1, size: 1.6, pal: 0,
+      heat: 1, buoy: 150, drag: 1.4, turb: 60, seed: Math.random() * 100
+    }, o));
+    if (!running) { running = true; lastT = performance.now(); requestAnimationFrame(loop); }
+  }
+
+  function loop(now) {
+    const dt = Math.min(.05, (now - lastT) / 1000); lastT = now;
+    fctx.clearRect(0, 0, W, H);
+    tasks.forEach((fn) => fn(dt, now));
+
+    bucketLen.fill(0);
+    for (let i = parts.length - 1; i >= 0; i--) {
+      const p = parts[i];
+      if (p.delay > 0) { p.delay -= dt; continue; }
+      p.age += dt;
+      const t = p.age / p.life;
+      if (t >= 1) { parts[i] = parts[parts.length - 1]; parts.pop(); continue; }
+      p.vx += Math.sin(p.age * 7 + p.seed) * p.turb * dt;
+      p.vy -= p.buoy * dt;
+      const d = 1 - p.drag * dt; p.vx *= d; p.vy *= d;
+      p.x += p.vx * dt; p.y += p.vy * dt;
+      if (p.x < -40 || p.x > W + 40 || p.y < -60 || p.y > H + 40) continue;
+      const temp = clamp(p.heat * (1 - t) ** .7, 0, 1);
+      const flick = .65 + .35 * Math.sin(p.age * 38 + p.seed * 3);
+      const a = (1 - t) ** 1.3 * flick;
+      const ai = Math.min(AS - 1, (a * AS) | 0);
+      if (a < .04) continue;
+      const k = ((p.pal * TS + Math.round(temp * (TS - 1))) * AS + ai) * 2 + (p.size * (1 - t * .5) > 1.7 ? 1 : 0);
+      const arr = buckets[k]; let n = bucketLen[k];
+      arr[n] = p.x - p.vx * .035; arr[n + 1] = p.y - p.vy * .035; arr[n + 2] = p.x; arr[n + 3] = p.y;
+      bucketLen[k] = n + 4;
+    }
+    fctx.globalCompositeOperation = "lighter";
+    fctx.lineCap = "round";
+    for (let k = 0; k < NB; k++) {
+      const n = bucketLen[k]; if (!n) continue;
+      const arr = buckets[k];
+      fctx.strokeStyle = STYLES[k >> 1];
+      fctx.lineWidth = k & 1 ? 2.3 : 1.25;
+      fctx.beginPath();
+      for (let j = 0; j < n; j += 4) { fctx.moveTo(arr[j], arr[j + 1]); fctx.lineTo(arr[j + 2], arr[j + 3]); }
+      fctx.stroke();
+    }
+    fctx.globalCompositeOperation = "source-over";
+    if (parts.length || tasks.size) requestAnimationFrame(loop);
+    else { running = false; fctx.clearRect(0, 0, W, H); }
+  }
+  function addTask(fn) { tasks.add(fn); if (!running) { running = true; lastT = performance.now(); requestAnimationFrame(loop); } }
+
+  /* Turn an element (drawn on a canvas) into burning particles, sweeping left → right.
+     The part not yet burned is drawn straight from the source canvas. */
+  function disintegrate(srcCanvas, rect, opts = {}) {
+    const ctx = srcCanvas.getContext("2d");
+    const sw = srcCanvas.width, sh = srcCanvas.height;
+    let data;
+    try { data = ctx.getImageData(0, 0, sw, sh).data; }
+    catch (e) { data = null; } // pixels unreadable (e.g. opened from disk): use the shape only
+    const sx = sw / rect.width, sy = sh / rect.height;
+    const step = opts.step || 3, sweep = opts.sweep ?? .45;
+    for (let y = 0; y < rect.height; y += step) {
+      for (let x = 0; x < rect.width; x += step) {
+        if (data && data[((Math.floor(y * sy) * sw) + Math.floor(x * sx)) * 4 + 3] < 60) continue;
+        const nx = x / rect.width;
+        spark({
+          x: rect.left + x, y: rect.top + y, size: rand(1.2, 2.6), delay: nx * sweep + rand(0, .06),
+          vx: rand(-40, 90), vy: rand(-140, 10), life: rand(.7, 1.7), heat: rand(.6, 1),
+          buoy: rand(120, 260), drag: 1.1, turb: 90
+        });
+      }
+    }
+    const t0 = performance.now();
+    const rest = () => {
+      const f = (performance.now() - t0) / 1000 / sweep;
+      if (f >= 1) { tasks.delete(rest); return; }
+      const cut = rect.width * f;
+      fctx.drawImage(srcCanvas, cut * sx, 0, sw - cut * sx, sh, rect.left + cut, rect.top, rect.width - cut, rect.height);
+    };
+    addTask(rest);
+  }
+
+  /* =====================================================================
+     INTRO: flickering neon + burn-out reveal
+     ===================================================================== */
+  const intro = $("intro"), neon = $("neon"), neonBtn = $("neonBtn");
+  const video = $("heroVideo"), hero = $("hero"), hint = $("scrollHint");
+
+  // realistic neon flicker: long stable periods, short irregular bursts
+  let flickerTimer = 0, introDone = false;
+  function setLit(on) { neon.classList.toggle("off", !on); intro.classList.toggle("off", !on); }
+  function flickerBurst() {
+    if (introDone) return;
+    let n = 2 + Math.floor(Math.random() * 6), on = true;
+    const step = () => {
+      if (introDone) return;
+      on = !on; setLit(on);
+      if (--n > 0 || !on) flickerTimer = setTimeout(step, rand(30, on ? 140 : 90));
+      else flickerTimer = setTimeout(flickerBurst, rand(1400, 5200));
+    };
+    step();
+  }
+  if (!reduced) flickerTimer = setTimeout(flickerBurst, 900);
+
+  // try to keep phones in portrait (works where the browser allows it)
+  function lockPortrait() { try { screen.orientation && screen.orientation.lock && screen.orientation.lock("portrait").catch(() => {}); } catch (e) {} }
+
+  // points along the neon tube, measured in small chunks while the visitor looks at the sign
+  const logoPts = [];
+  (function sampleLogo() {
+    let path, len, i = 0;
+    const N = 2400;
+    const chunk = () => {
+      try {
+        if (!path) {
+          path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+          path.setAttribute("d", $("bpath").getAttribute("d"));
+          path.setAttribute("fill", "none"); path.setAttribute("stroke", "none");
+          neon.appendChild(path);
+          len = path.getTotalLength();
+        }
+        const end = Math.min(N, i + 30);
+        for (; i < end; i++) { const q = path.getPointAtLength((i / N) * len); logoPts.push(q.x, q.y); }
+        if (i < N && !introDone) setTimeout(chunk, 16); else path.remove();
+      } catch (e) { if (path) path.remove(); }
+    };
+    setTimeout(chunk, 300);
+  })();
+
+  neonBtn.addEventListener("click", ignite, { once: true });
+
+  function ignite() {
+    introDone = true; clearTimeout(flickerTimer); setLit(true);
+    lockPortrait();
+    startVideo();
+
+    const ir = neonBtn.getBoundingClientRect();
+    const cx = ir.left + ir.width / 2, cy = ir.top + ir.height / 2;
+
+    if (reduced) {
+      releaseVideo();
+      intro.style.transition = "opacity .8s"; intro.style.opacity = "0";
+      setTimeout(() => intro.classList.add("gone"), 850);
+      return;
+    }
+
+    // 1) the neon tube bursts into red-hot sparks
+    try {
+      const m = neon.getScreenCTM(), pt = neon.createSVGPoint();
+      for (let i = 0; i < logoPts.length; i += 2) {
+        pt.x = logoPts[i]; pt.y = logoPts[i + 1]; const s = pt.matrixTransform(m);
+        const ang = Math.atan2(s.y - cy, s.x - cx), sp = rand(30, 190);
+        spark({ x: s.x, y: s.y, vx: Math.cos(ang) * sp, vy: Math.sin(ang) * sp - rand(20, 120),
+          pal: 1, heat: rand(.7, 1), size: rand(1.2, 2.8), life: rand(.9, 2.2),
+          buoy: rand(50, 130), drag: 1.3, turb: 70 });
+      }
+    } catch (e) {}
+    intro.classList.add("igniting");
+
+    // 2) paint the wall onto a canvas so it can burn away
+    const cv = $("introCanvas"), c = cv.getContext("2d");
+    const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+    const w = window.innerWidth, h = window.innerHeight;
+    cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr);
+    c.setTransform(dpr, 0, 0, dpr, 0, 0);
+    c.fillStyle = "#0d0c0b"; c.fillRect(0, 0, w, h);
+    if (plasterImg.complete && plasterImg.naturalWidth) {
+      const s = Math.max(w / plasterImg.naturalWidth, h / plasterImg.naturalHeight);
+      const iw = plasterImg.naturalWidth * s, ih = plasterImg.naturalHeight * s;
+      c.drawImage(plasterImg, (w - iw) / 2, (h - ih) / 2, iw, ih);
+    }
+    const vg = c.createRadialGradient(w / 2, h / 2, Math.min(w, h) * .25, w / 2, h / 2, Math.hypot(w, h) * .55);
+    vg.addColorStop(0, "rgba(0,0,0,0)"); vg.addColorStop(1, "rgba(0,0,0,.62)");
+    c.fillStyle = vg; c.fillRect(0, 0, w, h);
+    cv.style.display = "block";
+    intro.style.background = "transparent";
+    intro.querySelector(".intro__vignette").style.display = "none";
+
+    // 3) an organic burn front that grows from the logo to the edges
+    const N = 180, harm = [], jag = [];
+    [2, 3, 5, 7, 9, 13, 17, 24].forEach((k) => harm.push({ k, a: .11 / Math.pow(k, .55) * rand(.6, 1.15), ph: rand(0, 6.28), w: rand(-1.5, 1.5) }));
+    for (let i = 0; i < N; i++) jag.push(rand(-.035, .035));
+    const D = Math.max(Math.hypot(cx, cy), Math.hypot(w - cx, cy), Math.hypot(cx, h - cy), Math.hypot(w - cx, h - cy));
+    const Rmax = D / .58, dur = 3400, t0 = performance.now() + 200;
+    const xs = new Float32Array(N), ys = new Float32Array(N);
+
+    function front(base, t, extra) {
+      for (let i = 0; i < N; i++) {
+        const th = (i / N) * Math.PI * 2;
+        let f = 1 + jag[i];
+        for (const hm of harm) f += hm.a * Math.sin(hm.k * th + hm.ph + hm.w * t);
+        const r = Math.max(0, base * f + extra);
+        xs[i] = cx + Math.cos(th) * r; ys[i] = cy + Math.sin(th) * r;
+      }
+    }
+    function polyPath(ctx) {
+      ctx.beginPath(); ctx.moveTo(xs[0], ys[0]);
+      for (let i = 1; i < N; i++) ctx.lineTo(xs[i], ys[i]);
+      ctx.closePath();
+    }
+
+    const burn = (dt, now) => {
+      const p = (now - t0) / dur;
+      if (p < 0) return;
+      const e = Math.pow(Math.min(p, 1), 1.3);
+      const base = 8 + e * Rmax, t = (now - t0) / 1000;
+
+      // scorch the plaster just ahead of the flame
+      c.globalCompositeOperation = "source-atop";
+      front(base, t, 26); polyPath(c); c.lineWidth = 46; c.strokeStyle = "rgba(6,3,1,.10)"; c.stroke();
+      front(base, t, 7); polyPath(c); c.lineWidth = 12; c.strokeStyle = "rgba(255,105,25,.30)"; c.stroke();
+      // burn through
+      c.globalCompositeOperation = "destination-out";
+      c.fillStyle = "#000";
+      front(base, t, 0); polyPath(c); c.fill();
+      c.globalCompositeOperation = "source-over";
+
+      // glowing edge on the fx layer
+      fctx.globalCompositeOperation = "lighter";
+      front(base, t, 2); polyPath(fctx);
+      fctx.lineJoin = "round";
+      fctx.lineWidth = 16; fctx.strokeStyle = "rgba(255,70,10,.22)"; fctx.stroke();
+      fctx.lineWidth = 5; fctx.strokeStyle = "rgba(255,150,50,.75)"; fctx.stroke();
+      fctx.lineWidth = 1.6; fctx.strokeStyle = "rgba(255,240,205,.95)"; fctx.stroke();
+      fctx.globalCompositeOperation = "source-over";
+
+      // sparks fly off the burning edge, like from a bonfire
+      const count = Math.round(240 + 220 * e);
+      for (let k = 0; k < count; k++) {
+        const i = (Math.random() * N) | 0, x = xs[i], y = ys[i];
+        if (x < -20 || y < -20 || x > w + 20 || y > h + 20) continue;
+        const th = (i / N) * Math.PI * 2, sp = rand(20, 150);
+        spark({ x, y, vx: Math.cos(th) * sp + rand(-30, 30), vy: Math.sin(th) * sp - rand(40, 230),
+          heat: rand(.75, 1), size: rand(.8, 2.4),
+          life: rand(.8, 2.1), buoy: rand(100, 220), drag: 1.2, turb: 110 });
+      }
+
+      if (p >= .5) releaseVideo();
+      if (p >= 1) { tasks.delete(burn); intro.classList.add("gone"); }
+    };
+    addTask(burn);
+  }
+
+  /* ---------- hero video ---------- */
+  let videoFinished = false, videoReleased = false, failTimer = 0;
+  // on tap: unlock playback inside the user gesture, then hold on the first frame
+  function startVideo() {
+    try { video.currentTime = 0; } catch (e) {}
+    const pr = video.play();
+    if (pr && pr.then) pr.then(() => { if (!videoReleased) { video.pause(); try { video.currentTime = 0; } catch (e) {} } }).catch(() => {});
+  }
+  // once the wall has mostly burned away, the neon video starts
+  function releaseVideo() {
+    if (videoReleased) return;
+    videoReleased = true;
+    const pr = video.play();
+    if (pr && pr.catch) pr.catch(() => finishVideo(true));
+    failTimer = setTimeout(() => { if (video.paused || video.readyState < 2) finishVideo(true); }, 7000);
+  }
+  video.addEventListener("playing", () => {
+    if (!videoReleased) return;
+    clearTimeout(failTimer); failTimer = setTimeout(() => finishVideo(false), 12000);
+  });
+  video.addEventListener("ended", () => finishVideo(false));
+  video.addEventListener("error", () => finishVideo(true), true);
+
+  function finishVideo(failed) {
+    if (videoFinished) return;
+    videoFinished = true; clearTimeout(failTimer);
+    if (failed) { try { video.pause(); } catch (e) {} }
+    // swap: the last video frame is replaced by the same wall (fixed) + the same sign (scrolls)
+    hero.classList.add("swapped");
+    $("signLayer").classList.add("on");
+    setTimeout(() => document.documentElement.classList.add("dim"), 700);
+    document.documentElement.classList.remove("locked");
+    setTimeout(() => hint.classList.add("show"), 300);
+  }
+  window.addEventListener("scroll", () => {
+    if (videoFinished && window.scrollY > 40) hint.classList.remove("show");
+  }, { passive: true });
+
+  /* =====================================================================
+     Scroll reveal (slide up + fade in)
+     ===================================================================== */
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((en) => { if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); } });
+  }, { threshold: .15, rootMargin: "0px 0px -6% 0px" });
+  document.querySelectorAll(".rv").forEach((el) => io.observe(el));
+  document.querySelectorAll(".plan li").forEach((el, i) => el.style.setProperty("--d", String(i % 6 * .6 + 1)));
+
+  /* =====================================================================
+     Lava marble drawing (shared by canvas button + disintegration)
+     ===================================================================== */
+  function roundRect(c, x, y, w, h, r) {
+    c.beginPath(); c.moveTo(x + r, y); c.arcTo(x + w, y, x + w, y + h, r); c.arcTo(x + w, y + h, x, y + h, r);
+    c.arcTo(x, y + h, x, y, r); c.arcTo(x, y, x + w, y, r); c.closePath();
+  }
+  function drawSpaced(c, text, cx, cy, spacing) {
+    const chars = [...text];
+    const widths = chars.map((ch) => c.measureText(ch).width);
+    const total = widths.reduce((a, b) => a + b, 0) + spacing * (chars.length - 1);
+    let x = cx - total / 2;
+    chars.forEach((ch, i) => { c.fillText(ch, x, cy); x += widths[i] + spacing; });
+  }
+  // px,py: background-position fractions (0..1), matches CSS "340% auto"
+  function drawLava(c, w, h, px, py, hx, label, radius) {
+    c.save();
+    roundRect(c, 0, 0, w, h, radius); c.clip();
+    c.fillStyle = "#7a2e08"; c.fillRect(0, 0, w, h);
+    if (marbleImg.complete && marbleImg.naturalWidth) {
+      const iw = w * 3.4, ih = iw * marbleImg.naturalHeight / marbleImg.naturalWidth;
+      c.drawImage(marbleImg, (w - iw) * px, (h - ih) * py, iw, ih);
+    }
+    const hot = c.createRadialGradient(w * hx, h / 2, 0, w * hx, h / 2, w * .5);
+    hot.addColorStop(0, "rgba(255,200,90,.38)"); hot.addColorStop(1, "rgba(255,120,20,0)");
+    c.fillStyle = hot; c.fillRect(0, 0, w, h);
+    const veil = c.createLinearGradient(0, 0, 0, h);
+    veil.addColorStop(0, "rgba(60,18,0,.18)"); veil.addColorStop(1, "rgba(30,8,0,.5)");
+    c.fillStyle = veil; c.fillRect(0, 0, w, h);
+    c.lineWidth = 2; c.strokeStyle = "rgba(255,200,130,.45)"; roundRect(c, 1, 1, w - 2, h - 2, radius - 1); c.stroke();
+    if (label) {
+      c.font = "600 14px Onest, 'Segoe UI', system-ui, sans-serif";
+      c.textBaseline = "middle"; c.fillStyle = "#fff8ee";
+      c.shadowColor = "rgba(40,10,0,.7)"; c.shadowBlur = 3; c.shadowOffsetY = 1;
+      drawSpaced(c, label.toUpperCase(), w / 2, h / 2 + 1, 14 * .18);
+      c.shadowColor = "transparent";
+    }
+    c.restore();
+  }
+  function bgPosOf(el) {
+    const s = getComputedStyle(el).backgroundPosition.split(" ");
+    const f = (v) => (v && v.endsWith("%") ? parseFloat(v) / 100 : .5);
+    return [f(s[0]), f(s[1])];
+  }
+  // rasterise a DOM button so it can turn into sparks
+  function rasterize(el) {
+    const r = el.getBoundingClientRect();
+    const cv = document.createElement("canvas");
+    cv.width = Math.round(r.width * 2); cv.height = Math.round(r.height * 2);
+    const c = cv.getContext("2d"); c.scale(2, 2);
+    if (el.classList.contains("lava")) {
+      const [px, py] = bgPosOf(el);
+      drawLava(c, r.width, r.height, px, py, .5, el.textContent.trim(), 16);
+    } else {
+      const g = c.createLinearGradient(0, 0, r.width, r.height);
+      g.addColorStop(0, "#3a3936"); g.addColorStop(.55, "#24231f"); g.addColorStop(1, "#2e2a25");
+      roundRect(c, 0, 0, r.width, r.height, 14); c.fillStyle = g; c.fill();
+      c.lineWidth = 1; c.strokeStyle = "rgba(239,235,228,.22)"; roundRect(c, .5, .5, r.width - 1, r.height - 1, 14); c.stroke();
+      c.font = "500 13px Onest, 'Segoe UI', system-ui, sans-serif"; c.textBaseline = "middle"; c.fillStyle = "rgba(239,235,228,.75)";
+      drawSpaced(c, el.textContent.trim().toUpperCase(), r.width / 2, r.height / 2 + 1, 13 * .16);
+    }
+    return { cv, rect: r };
+  }
+
+  /* =====================================================================
+     Block 3: "Стереть" scratch button → countdown
+     ===================================================================== */
+  const sc = $("scratchCanvas"), sctx = sc.getContext("2d"), zone = $("scratch"), timer = $("timer");
+  const mask = document.createElement("canvas"), mctx = mask.getContext("2d");
+  let sw = 0, sh = 0, sdpr = 1, scratchAlive = true, scratchVisible = false, scratchRAF = 0;
+  const BR = 24, CELL = 10;
+  let grid = null, gCols = 0, gRows = 0, gHit = 0;
+
+  function sizeScratch() {
+    const r = sc.getBoundingClientRect();
+    if (!r.width) return;
+    const keep = sw ? mask : null;
+    let old = null;
+    if (keep) { old = document.createElement("canvas"); old.width = mask.width; old.height = mask.height; old.getContext("2d").drawImage(mask, 0, 0); }
+    sdpr = Math.min(window.devicePixelRatio || 1, 2);
+    sw = r.width; sh = r.height;
+    sc.width = Math.round(sw * sdpr); sc.height = Math.round(sh * sdpr);
+    mask.width = sc.width; mask.height = sc.height;
+    if (old) mctx.drawImage(old, 0, 0, mask.width, mask.height);
+    gCols = Math.ceil(sw / CELL); gRows = Math.ceil(sh / CELL);
+    if (!grid || grid.length !== gCols * gRows) { grid = new Uint8Array(gCols * gRows); gHit = 0; }
+  }
+
+  function renderScratch(now) {
+    if (!scratchAlive) return;
+    const t = now / 1000;
+    const px = .5 + .5 * Math.sin(t * .22), py = .1 + .06 * Math.sin(t * .17 + 1), hx = .5 + .3 * Math.sin(t * .6);
+    sctx.setTransform(sdpr, 0, 0, sdpr, 0, 0);
+    sctx.clearRect(0, 0, sw, sh);
+    drawLava(sctx, sw, sh, px, py, hx, "Стереть", 16);
+    // sweeping glare
+    const cyc = (t % 3.8) / 3.8;
+    if (cyc < .55) {
+      const gx = -sw * .4 + (sw * 1.8) * (cyc / .55);
+      sctx.save(); roundRect(sctx, 0, 0, sw, sh, 16); sctx.clip();
+      sctx.globalCompositeOperation = "screen";
+      const g = sctx.createLinearGradient(gx - 50, 0, gx + 50, sh * .4);
+      g.addColorStop(0, "rgba(255,250,235,0)"); g.addColorStop(.5, "rgba(255,250,235,.6)"); g.addColorStop(1, "rgba(255,250,235,0)");
+      sctx.fillStyle = g; sctx.fillRect(0, 0, sw, sh);
+      sctx.restore();
+    }
+    // scratched-away parts
+    sctx.setTransform(1, 0, 0, 1, 0, 0);
+    sctx.globalCompositeOperation = "destination-out";
+    sctx.drawImage(mask, 0, 0);
+    sctx.globalCompositeOperation = "source-over";
+    if (scratchVisible) scratchRAF = requestAnimationFrame(renderScratch);
+  }
+  new IntersectionObserver((en) => {
+    scratchVisible = en[0].isIntersecting;
+    if (scratchVisible && scratchAlive) { sizeScratch(); cancelAnimationFrame(scratchRAF); scratchRAF = requestAnimationFrame(renderScratch); }
+  }).observe(sc);
+  window.addEventListener("resize", () => { if (scratchAlive) sizeScratch(); });
+
+  let drawing = false, lx = 0, ly = 0;
+  function local(e) { const r = sc.getBoundingClientRect(); return [e.clientX - r.left, e.clientY - r.top, r]; }
+  function scratchTo(x, y, r) {
+    mctx.setTransform(sdpr, 0, 0, sdpr, 0, 0);
+    mctx.lineCap = "round"; mctx.lineJoin = "round"; mctx.lineWidth = BR * 2; mctx.strokeStyle = "#000"; mctx.fillStyle = "#000";
+    mctx.beginPath(); mctx.moveTo(lx, ly); mctx.lineTo(x, y); mctx.stroke();
+    mctx.beginPath(); mctx.arc(x, y, BR, 0, Math.PI * 2); mctx.fill();
+    const dist = Math.hypot(x - lx, y - ly), steps = Math.max(1, Math.ceil(dist / 5));
+    for (let s = 0; s <= steps; s++) {
+      const px = lx + (x - lx) * s / steps, py = ly + (y - ly) * s / steps;
+      const c0 = Math.max(0, Math.floor((px - BR) / CELL)), c1 = Math.min(gCols - 1, Math.floor((px + BR) / CELL));
+      const r0 = Math.max(0, Math.floor((py - BR) / CELL)), r1 = Math.min(gRows - 1, Math.floor((py + BR) / CELL));
+      for (let gy = r0; gy <= r1; gy++) for (let gx = c0; gx <= c1; gx++) {
+        const ccx = gx * CELL + CELL / 2, ccy = gy * CELL + CELL / 2;
+        if ((ccx - px) ** 2 + (ccy - py) ** 2 <= BR * BR) { const k = gy * gCols + gx; if (!grid[k]) { grid[k] = 1; gHit++; } }
+      }
+      if (s % 2 === 0 && px > -BR && px < sw + BR && py > -BR && py < sh + BR) {
+        for (let k = 0; k < 3; k++) spark({ x: r.left + px + rand(-10, 10), y: r.top + py + rand(-10, 10),
+          vx: rand(-70, 70) + (x - lx) * 2, vy: rand(-180, -20), heat: rand(.7, 1), size: rand(.9, 2.2), life: rand(.4, 1.1), buoy: 180, drag: 1.6, turb: 100 });
+      }
+    }
+    lx = x; ly = y;
+    if (gHit / (gCols * gRows) > .42) clearScratch();
+  }
+  sc.addEventListener("pointerdown", (e) => {
+    if (!scratchAlive) return;
+    zone.classList.add("touched");
+    drawing = true; const [x, y, r] = local(e); lx = x; ly = y; scratchTo(x, y, r);
+    try { sc.setPointerCapture(e.pointerId); } catch (er) {}
+  });
+  sc.addEventListener("pointermove", (e) => { if (drawing && scratchAlive) { const [x, y, r] = local(e); scratchTo(x, y, r); } });
+  ["pointerup", "pointercancel", "lostpointercapture"].forEach((ev) => sc.addEventListener(ev, () => (drawing = false)));
+  sc.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); clearScratch(); } });
+
+  function clearScratch() {
+    if (!scratchAlive) return;
+    scratchAlive = false; drawing = false; cancelAnimationFrame(scratchRAF);
+    const r = sc.getBoundingClientRect();
+    disintegrate(sc, r, { step: 3, sweep: .4 });
+    sc.style.visibility = "hidden"; sc.setAttribute("aria-hidden", "true"); sc.tabIndex = -1;
+    zone.classList.add("cleared");
+    setTimeout(() => timer.classList.add("on"), 250);
+  }
+
+  /* ---------- countdown to 12.12.2026 18:00 Minsk (UTC+3) ---------- */
+  const TARGET = Date.UTC(2026, 11, 12, 15, 0, 0);
+  const plural = (n, f) => { const a = n % 10, b = n % 100; return a === 1 && b !== 11 ? f[0] : a >= 2 && a <= 4 && (b < 12 || b > 14) ? f[1] : f[2]; };
+  const F = { d: ["день", "дня", "дней"], h: ["час", "часа", "часов"], m: ["минута", "минуты", "минут"], s: ["секунда", "секунды", "секунд"] };
+  const pad = (n) => String(n).padStart(2, "0");
+  function tick() {
+    let diff = Math.max(0, TARGET - Date.now());
+    if (diff === 0) { timer.classList.add("done"); return; }
+    const d = Math.floor(diff / 864e5); diff -= d * 864e5;
+    const h = Math.floor(diff / 36e5); diff -= h * 36e5;
+    const m = Math.floor(diff / 6e4); diff -= m * 6e4;
+    const s = Math.floor(diff / 1e3);
+    $("tD").textContent = d; $("lD").textContent = plural(d, F.d);
+    $("tH").textContent = pad(h); $("lH").textContent = plural(h, F.h);
+    $("tM").textContent = pad(m); $("lM").textContent = plural(m, F.m);
+    $("tS").textContent = pad(s); $("lS").textContent = plural(s, F.s);
+    setTimeout(tick, 1000 - (Date.now() % 1000) + 5);
+  }
+  tick();
+
+  /* =====================================================================
+     Block 5: RSVP (design only: no messages are sent yet)
+     ===================================================================== */
+  const confirmBtn = $("confirmBtn"), declineBtn = $("declineBtn"), declineSlot = $("declineSlot"), note = $("rsvpNote");
+  const modal = $("modal");
+
+  function goldBurst(el) {
+    const r = el.getBoundingClientRect();
+    for (let i = 0; i < 140; i++) {
+      const x = r.left + Math.random() * r.width, y = r.top + Math.random() * r.height;
+      spark({ x, y, pal: 2, vx: rand(-160, 160), vy: rand(-260, -40), heat: rand(.6, .95), size: rand(1, 2.4), life: rand(.6, 1.4), buoy: 60, drag: 1.5, turb: 60 });
+    }
+  }
+  confirmBtn.addEventListener("click", () => {
+    if (confirmBtn.classList.contains("done")) return;
+    // TODO: send "<guest> подтвердила приглашение" to the Telegram bot here
+    goldBurst(confirmBtn);
+    confirmBtn.classList.add("done");
+    confirmBtn.setAttribute("aria-disabled", "true");
+    $("confirmLabel").textContent = "Участие подтверждено ✓";
+    declineSlot.classList.add("gone");
+    note.textContent = `Спасибо, ${guest}! Ждём Вас 12 декабря.`;
+    note.classList.add("show");
+  });
+
+  declineBtn.addEventListener("click", () => {
+    if (declineBtn.dataset.gone) return;
+    declineBtn.dataset.gone = "1";
+    const { cv, rect } = rasterize(declineBtn);
+    disintegrate(cv, rect, { step: 3, sweep: .35 });
+    declineBtn.style.visibility = "hidden";
+    setTimeout(() => declineSlot.classList.add("gone"), 650);
+    setTimeout(openModal, 900);
+  });
+
+  let lastFocus = null;
+  function openModal() {
+    lastFocus = document.activeElement;
+    modal.hidden = false;
+    requestAnimationFrame(() => modal.classList.add("show"));
+    setTimeout(() => $("modalOk").focus(), 50);
+  }
+  function closeModal() {
+    modal.classList.remove("show");
+    setTimeout(() => { modal.hidden = true; if (lastFocus && lastFocus.focus) lastFocus.focus(); }, 350);
+  }
+  $("modalOk").addEventListener("click", closeModal);
+  modal.addEventListener("click", (e) => { if (e.target === modal) closeModal(); });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !modal.hidden) closeModal(); });
+
+  /* =====================================================================
+     Block 6: calendar (.ics file opens the phone's "Add event" sheet)
+     ===================================================================== */
+  const gcal = new URL("https://calendar.google.com/calendar/render");
+  gcal.searchParams.set("action", "TEMPLATE");
+  gcal.searchParams.set("text", "Открытие клуба Браго");
+  gcal.searchParams.set("dates", "20261212T150000Z/20261212T230000Z");
+  gcal.searchParams.set("location", "Барановичи, ул. Комсомольская, 61");
+  gcal.searchParams.set("details", "Торжественное открытие клуба Браго. Начало в 18:00. Дресс-код: Black & Gold.");
+  $("gcalLink").href = gcal.toString();
+  // design stage: the button only plays its effect. Set to true on the real server
+  // (brago-opening.ics is ready, see deploy/nginx.conf or .htaccess).
+  const CALENDAR_LIVE = false;
+  $("calBtn").addEventListener("click", (e) => {
+    if (!CALENDAR_LIVE) e.preventDefault();
+    goldBurst($("calBtn"));
+  });
+})();
+</script>
+</body>
+</html>
