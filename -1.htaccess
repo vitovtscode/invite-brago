@@ -1,0 +1,21 @@
+# Brago invitation (Apache): every visit downloads a fresh copy.
+DirectoryIndex priglashenie.html
+
+AddType text/calendar .ics
+AddType video/mp4 .mp4
+
+<IfModule mod_headers.c>
+    Header always set Cache-Control "no-store, no-cache, must-revalidate, max-age=0"
+    Header always set Pragma "no-cache"
+    Header always set Expires "0"
+    Header unset ETag
+    Header unset Last-Modified
+    <FilesMatch "\.ics$">
+        Header always set Content-Disposition "inline; filename=\"brago-opening.ics\""
+    </FilesMatch>
+</IfModule>
+FileETag None
+
+<IfModule mod_expires.c>
+    ExpiresActive Off
+</IfModule>
